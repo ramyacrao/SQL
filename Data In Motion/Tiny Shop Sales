@@ -112,22 +112,49 @@
 
 
 Which product has the highest price? Only return a single row.
-**Query #1**
 
-    SELECT 
-    	product_name
-    FROM 
-    	products 
-    WHERE 
-    	price IN (SELECT MAX(price)
-                  FROM products);
+SELECT 
+    product_name
+FROM 
+    products 
+WHERE 
+    price IN (SELECT MAX(price)
+              FROM products);
 
 | product_name |
 | ------------ |
 | Product M    |
 
+---
 
 Which customer has made the most orders?
+
+WITH order_count_ranked AS 
+    (SELECT 
+        customer_id,
+        RANK() OVER(ORDER BY COUNT(DISTINCT order_id) DESC) AS order_count_rank
+    FROM 
+        orders
+    GROUP BY 
+        customer_id)
+SELECT 
+    first_name,
+    last_name 
+FROM 
+    customers 
+WHERE 
+    customer_id IN (SELECT customer_id 
+                    FROM order_count_ranked 
+                    WHERE order_count_rank = 1);
+
+| first_name | last_name |
+| ---------- | --------- |
+| John       | Doe       |
+| Jane       | Smith     |
+| Bob        | Johnson   |
+
+---
+
 What’s the total revenue per product?
 Find the day with the highest revenue.
 Find the first order (by date) for each customer.
