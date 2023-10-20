@@ -156,6 +156,39 @@ WHERE
 ---
 
 What’s the total revenue per product?
+
+    SELECT 
+    	p.product_id,
+        p.product_name,
+        SUM(oi.quantity * p.price) AS revenue 
+    FROM 
+    	products p INNER JOIN order_items oi 
+        ON 
+        p.product_id = oi.product_id 
+    GROUP BY 
+    	p.product_id,
+        p.product_name
+    ORDER BY 
+    	revenue DESC;
+
+| product_id | product_name | revenue |
+| ---------- | ------------ | ------- |
+| 13         | Product M    | 420.00  |
+| 10         | Product J    | 330.00  |
+| 6          | Product F    | 210.00  |
+| 12         | Product L    | 195.00  |
+| 11         | Product K    | 180.00  |
+| 3          | Product C    | 160.00  |
+| 9          | Product I    | 150.00  |
+| 8          | Product H    | 135.00  |
+| 2          | Product B    | 135.00  |
+| 7          | Product G    | 120.00  |
+| 5          | Product E    | 90.00   |
+| 4          | Product D    | 75.00   |
+| 1          | Product A    | 50.00   |
+
+---
+
 Find the day with the highest revenue.
 Find the first order (by date) for each customer.
 Find the top 3 customers who have ordered the most distinct products
