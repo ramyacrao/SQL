@@ -190,6 +190,30 @@ What’s the total revenue per product?
 ---
 
 Find the day with the highest revenue.
+
+    WITH date_ranked_by_revenue AS 
+    	(SELECT 
+         	DATE(o.order_date) AS day_highest_revenue,
+         	RANK() OVER(ORDER BY SUM(oi.quantity * p.price) DESC) AS date_rank_revenue
+         FROM 
+         	orders o
+         		INNER JOIN order_items oi ON o.order_id = oi.order_id
+         		INNER JOIN products p ON oi.product_id = p.product_id
+        GROUP BY 
+        	o.order_date)
+    SELECT 
+    	day_highest_revenue
+    FROM 
+    	date_ranked_by_revenue 
+    WHERE 
+    	date_rank_revenue = 1;
+
+| day_highest_revenue      |
+| ------------------------ |
+| 2023-05-16T00:00:00.000Z |
+
+---
+
 Find the first order (by date) for each customer.
 Find the top 3 customers who have ordered the most distinct products
 Which product has been bought the least in terms of quantity?
