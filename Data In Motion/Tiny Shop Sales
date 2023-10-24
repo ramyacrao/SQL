@@ -249,7 +249,32 @@ Find the first order (by date) for each customer.
 ---
 
 Find the top 3 customers who have ordered the most distinct products
-Which product has been bought the least in terms of quantity?
+Which product has been bought the least in terms of quantity
+
+    WITH qty_ordered_ranked AS
+    	(SELECT 
+         	product_id,
+         	RANK() OVER(ORDER BY SUM(quantity) DESC) AS qty_ordered_rank 
+         FROM 
+         	order_items
+         GROUP BY 
+        	product_id)
+         SELECT 
+         	product_id,
+            product_name
+         FROM 
+         	products
+         WHERE 
+         	product_id IN (SELECT product_id 
+                           FROM qty_ordered_ranked
+                           WHERE qty_ordered_rank = 1);
+
+| product_id | product_name |
+| ---------- | ------------ |
+| 2          | Product B    |
+
+---
+
 What is the median order total?
 For each order, determine if it was ‘Expensive’ (total over 300), ‘Affordable’ (total over 100), or ‘Cheap’.
 Find customers who have ordered the product with the highest price.
