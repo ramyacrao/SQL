@@ -249,6 +249,35 @@ Find the first order (by date) for each customer.
 ---
 
 Find the top 3 customers who have ordered the most distinct products
+
+    WITH customers_ranked_distinct_products AS 
+      (SELECT 
+          o.customer_id,
+          DENSE_RANK() OVER(ORDER BY COUNT(DISTINCT oi.product_id) DESC) AS distinct_products_rank
+      FROM 
+          orders o INNER JOIN order_items oi 
+          ON 
+          o.order_id = oi.order_id
+      GROUP BY 
+      	o.customer_id)
+    SELECT 
+    	first_name,
+        last_name 
+    FROM 
+    	customers 
+    WHERE 
+    	customer_id IN (SELECT customer_id 
+                        FROM customers_ranked_distinct_products
+                        WHERE distinct_products_rank = 1);
+
+| first_name | last_name |
+| ---------- | --------- |
+| John       | Doe       |
+| Jane       | Smith     |
+| Bob        | Johnson   |
+
+---
+
 Which product has been bought the least in terms of quantity
 
     WITH qty_ordered_ranked AS
