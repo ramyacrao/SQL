@@ -306,4 +306,48 @@ Which product has been bought the least in terms of quantity
 
 What is the median order total?
 For each order, determine if it was ‘Expensive’ (total over 300), ‘Affordable’ (total over 100), or ‘Cheap’.
+
+    WITH order_totals AS
+      (SELECT 
+       	oi.order_id,
+        SUM(oi.quantity * p.price) AS order_total
+       FROM 
+       	order_items oi INNER JOIN products p
+       	ON 
+       	oi.product_id = p.product_id
+       GROUP BY 
+       	oi.order_id)
+    SELECT 
+    	order_id,
+        CASE 
+        	WHEN order_total > 300 THEN 'Expensive'
+            WHEN order_total > 100 AND order_total <= 300 THEN 'Affordable'
+            ELSE 'Cheap'
+            END AS order_classification
+    FROM 
+    	order_totals
+    ORDER BY 
+    	order_id;
+
+| order_id | order_classification |
+| -------- | -------------------- |
+| 1        | Cheap                |
+| 2        | Cheap                |
+| 3        | Cheap                |
+| 4        | Cheap                |
+| 5        | Cheap                |
+| 6        | Cheap                |
+| 7        | Cheap                |
+| 8        | Affordable           |
+| 9        | Affordable           |
+| 10       | Affordable           |
+| 11       | Affordable           |
+| 12       | Cheap                |
+| 13       | Affordable           |
+| 14       | Affordable           |
+| 15       | Affordable           |
+| 16       | Expensive            |
+
+---
+
 Find customers who have ordered the product with the highest price.
