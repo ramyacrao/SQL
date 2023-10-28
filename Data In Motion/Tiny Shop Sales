@@ -351,3 +351,30 @@ For each order, determine if it was ‘Expensive’ (total over 300), ‘Afforda
 ---
 
 Find customers who have ordered the product with the highest price.
+
+    WITH products_ranked_by_price AS 
+    	(SELECT 
+         	product_id,
+         	RANK() OVER(ORDER BY price DESC) AS price_rank 
+         FROM 
+         	products)
+    SELECT 
+    	c.customer_id,
+        c.first_name,
+        c.last_name
+    FROM 
+    	customers c 
+        	INNER JOIN orders o ON c.customer_id = o.customer_id 
+        	INNER JOIN order_items oi ON o.order_id = oi.order_id 
+    WHERE 
+    	oi.product_id IN (SELECT product_id 
+                          FROM products_ranked_by_price
+                          WHERE price_rank = 1);
+
+| customer_id | first_name | last_name |
+| ----------- | ---------- | --------- |
+| 8           | Ivy        | Jones     |
+| 13          | Sophia     | Thomas    |
+
+---
+
