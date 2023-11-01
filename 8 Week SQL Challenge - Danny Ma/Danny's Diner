@@ -97,3 +97,59 @@
 | C           | 2          |
 
 ---
+
+**Query #3**
+-- 3. What was the first item from the menu purchased by each customer?
+    SELECT 
+    	s.customer_id,
+        s.product_id,
+        m.product_name
+    FROM 
+    	dannys_diner.sales s INNER JOIN dannys_diner.menu m
+        ON 
+        s.product_id = m.product_id 
+    WHERE 
+    	s.order_date = (SELECT MIN(order_date)
+                        FROM dannys_diner.sales)
+    ORDER BY 
+    	s.customer_id;
+
+| customer_id | product_id | product_name |
+| ----------- | ---------- | ------------ |
+| A           | 1          | sushi        |
+| A           | 2          | curry        |
+| B           | 2          | curry        |
+| C           | 3          | ramen        |
+| C           | 3          | ramen        |
+
+---
+
+**Query #4**
+-- 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+    WITH items_ranked AS 
+      (SELECT 
+          s.product_id,
+          m.product_name,
+          COUNT(s.product_id) AS num_orders,
+       	  RANK() OVER(ORDER BY COUNT(s.product_id) DESC) AS item_rank
+      FROM 
+          dannys_diner.sales s INNER JOIN dannys_diner.menu m 
+          ON
+          s.product_id = m.product_id 
+      GROUP BY 
+          s.product_id,
+          m.product_name)
+    SELECT 
+    	product_id,
+        product_name,
+        num_orders 
+    FROM 
+    	items_ranked
+    WHERE 
+    	item_rank = 1;
+
+| product_id | product_name | num_orders |
+| ---------- | ------------ | ---------- |
+| 3          | ramen        | 8          |
+
+---
