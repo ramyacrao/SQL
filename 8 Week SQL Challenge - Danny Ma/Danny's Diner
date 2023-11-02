@@ -153,3 +153,102 @@
 | 3          | ramen        | 8          |
 
 ---
+
+**Query #5**
+-- 5. Which item was the most popular for each customer?
+    WITH items_ranked_per_customer AS 
+    	(SELECT 
+         	s.customer_id,
+         	m.product_name,
+         	COUNT(s.product_id) AS num_orders,    	
+         	RANK() OVER(PARTITION BY s.customer_id ORDER BY COUNT(s. product_id) DESC) AS item_rank_customer
+         FROM 
+         	dannys_diner.sales s INNER JOIN dannys_diner.menu m
+         	ON 
+         	s.product_id = m.product_id
+         GROUP BY 
+         	s.customer_id,
+        	m.product_name)
+    SELECT 
+    	customer_id,
+        product_name,
+        num_orders 
+    FROM 
+    	items_ranked_per_customer 
+    WHERE 
+    	item_rank_customer = 1;
+
+| customer_id | product_name | num_orders |
+| ----------- | ------------ | ---------- |
+| A           | ramen        | 3          |
+| B           | ramen        | 2          |
+| B           | curry        | 2          |
+| B           | sushi        | 2          |
+| C           | ramen        | 3          |
+
+---
+
+**Query #6**
+-- 6. Which item was purchased first by the customer after they became a member?
+    WITH member_orders_ranked AS 
+    	(SELECT 
+         	s.customer_id,
+         	s.order_date,
+         	s.product_id,
+         	RANK() OVER(PARTITION BY s.customer_id ORDER BY s.order_date ASC) AS order_rank
+         FROM 
+         	dannys_diner.sales s INNER JOIN dannys_diner.members m
+         	ON 
+         	s.customer_id = m.customer_id
+         WHERE 
+         	s.order_date > m.join_date)
+    SELECT 
+    	mor.customer_id,
+        mor.product_id,
+        m.product_name 
+    FROM 
+    	member_orders_ranked mor INNER JOIN dannys_diner.menu m
+        ON 
+        mor.product_id = m.product_id
+    WHERE 
+    	mor.order_rank = 1;
+
+| customer_id | product_id | product_name |
+| ----------- | ---------- | ------------ |
+| B           | 1          | sushi        |
+| A           | 3          | ramen        |
+
+---
+
+**Query #7**
+-- 7. Which item was purchased just before the customer became a member?
+    WITH member_orders_ranked AS 
+    	(SELECT 
+         	s.customer_id,
+         	s.order_date,
+         	s.product_id,
+         	RANK() OVER(PARTITION BY s.customer_id ORDER BY s.order_date DESC) AS order_rank
+         FROM 
+         	dannys_diner.sales s INNER JOIN dannys_diner.members m
+         	ON 
+         	s.customer_id = m.customer_id
+         WHERE 
+         	s.order_date < m.join_date)
+    SELECT 
+    	mor.customer_id,
+        mor.product_id,
+        m.product_name 
+    FROM 
+    	member_orders_ranked mor INNER JOIN dannys_diner.menu m
+        ON 
+        mor.product_id = m.product_id
+    WHERE 
+    	mor.order_rank = 1;
+
+| customer_id | product_id | product_name |
+| ----------- | ---------- | ------------ |
+| B           | 1          | sushi        |
+| A           | 1          | sushi        |
+| A           | 2          | curry        |
+
+---
