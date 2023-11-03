@@ -305,6 +305,28 @@ Which product has been bought the least in terms of quantity
 ---
 
 What is the median order total?
+
+    WITH order_totals AS 
+    	(SELECT 
+         	oi.order_id,
+         	SUM(oi.quantity * p.price) AS order_total
+         FROM 
+         	order_items oi INNER JOIN products p
+         	ON 
+         	oi.product_id = p.product_id 
+         GROUP BY 
+         	oi.order_id)
+    SELECT 
+    	PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY order_total ASC) AS median_order_total
+    FROM 
+    	order_totals;
+
+| median_order_total |
+| ------------------ |
+| 112.5              |
+
+---
+
 For each order, determine if it was ‘Expensive’ (total over 300), ‘Affordable’ (total over 100), or ‘Cheap’.
 
     WITH order_totals AS
