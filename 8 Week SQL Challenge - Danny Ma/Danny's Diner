@@ -252,3 +252,61 @@
 | A           | 2          | curry        |
 
 ---
+
+**Query #8**
+-- 8. What is the total items and amount spent for each member before they became a member?
+    WITH orders_pre_membership AS 
+    	(SELECT 
+         	s.customer_id,
+         	s.order_date,
+         	s.product_id
+         FROM 
+         	dannys_diner.sales s LEFT JOIN dannys_diner.members m
+         	ON 
+         	s.customer_id = m.customer_id 
+         WHERE 
+         	s.order_date < m.join_date
+        	OR 
+        	m.join_date IS NULL)
+    SELECT 
+    	opm.customer_id,
+        COUNT(DISTINCT opm.product_id) AS total_items_ordered,
+        SUM(m.price) AS total_amount_spent
+    FROM 
+    	orders_pre_membership opm INNER JOIN dannys_diner.menu m
+        ON 
+        opm.product_id = m.product_id
+    GROUP BY 
+    	opm.customer_id;
+
+| customer_id | total_items_ordered | total_amount_spent |
+| ----------- | ------------------- | ------------------ |
+| A           | 2                   | 25                 |
+| B           | 2                   | 40                 |
+| C           | 1                   | 36                 |
+
+---
+
+**Query #9**
+-- 9.  If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+    SELECT 
+    	s.customer_id,
+        SUM(CASE WHEN m.product_name = 'sushi' THEN 2 * 10 * price ELSE 10 * price END) AS total_points 
+    FROM 
+    	dannys_diner.sales s INNER JOIN dannys_diner.menu m 
+        ON 
+        s.product_id = m.product_id 
+    GROUP BY 
+    	s.customer_id
+    ORDER BY 
+    	total_points DESC;
+
+| customer_id | total_points |
+| ----------- | ------------ |
+| B           | 940          |
+| A           | 860          |
+| C           | 360          |
+
+---
+
+
