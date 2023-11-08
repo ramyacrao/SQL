@@ -146,3 +146,21 @@ How many unique customer orders were made?
 
 ---
 
+**Query #5**
+How many Vegetarian and Meatlovers were ordered by each customer?
+    SELECT 
+    	pn.pizza_name,
+        COUNT(co.pizza_id) AS num_orders
+    FROM 
+    	pizza_runner.pizza_names pn INNER JOIN pizza_runner.customer_orders co
+        ON 
+        pn.pizza_id = co.pizza_id
+    GROUP BY 
+    	pn.pizza_name;
+
+| pizza_name | num_orders |
+| ---------- | ---------- |
+| Meatlovers | 10         |
+| Vegetarian | 4          |
+
+---
