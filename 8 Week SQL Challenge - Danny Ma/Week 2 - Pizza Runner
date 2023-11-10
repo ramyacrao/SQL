@@ -165,6 +165,27 @@ How many Vegetarian and Meatlovers were ordered by each customer?
 
 ---
 
+**Query #9**
+What was the total volume of pizzas ordered for each hour of the day?
+    SELECT 
+    	TO_CHAR(order_time, 'HH24') AS hour_of_day,
+        COUNT(DISTINCT order_id) AS num_orders 
+    FROM
+    	pizza_runner.customer_orders
+    GROUP BY 
+    	TO_CHAR(order_time, 'HH24');
+
+| hour_of_day | num_orders |
+| ----------- | ---------- |
+| 11          | 1          |
+| 13          | 1          |
+| 18          | 2          |
+| 19          | 1          |
+| 21          | 3          |
+| 23          | 2          |
+
+---
+
 **Query #10**
 What was the volume of orders for each day of the week?
     SELECT 
@@ -183,3 +204,5 @@ What was the volume of orders for each day of the week?
 | Wednesday   | 5          |
 
 ---
+
+
