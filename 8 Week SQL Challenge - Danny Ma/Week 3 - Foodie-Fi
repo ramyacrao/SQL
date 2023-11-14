@@ -2695,3 +2695,34 @@ How many customers has Foodie-Fi ever had?
 | 1000          |
 
 ---
+
+**Query #3**
+What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name
+    SELECT 
+    	EXTRACT(month FROM start_date) AS month,
+        COUNT(DISTINCT customer_id) AS num_customers 
+    FROM 
+    	foodie_fi.subscriptions
+    WHERE 
+    	plan_id = (SELECT plan_id 
+                   FROM foodie_fi.plans
+                   WHERE LOWER(plan_name) = 'trial')
+    GROUP BY 
+    	EXTRACT(month FROM start_date);
+
+| month | num_customers |
+| ----- | ------------- |
+| 1     | 88            |
+| 2     | 68            |
+| 3     | 94            |
+| 4     | 81            |
+| 5     | 88            |
+| 6     | 79            |
+| 7     | 89            |
+| 8     | 88            |
+| 9     | 87            |
+| 10    | 79            |
+| 11    | 75            |
+| 12    | 84            |
+
+---
