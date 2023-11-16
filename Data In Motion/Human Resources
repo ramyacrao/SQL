@@ -88,3 +88,20 @@ Find the longest ongoing project for each department.
 | 3             | Sales | 183      |
 
 ---
+
+**Query #2**
+Find all employees who are not managers.
+    SELECT 
+    	name
+    FROM 
+    	employees
+    WHERE 
+    	LOWER(job_title) NOT LIKE '%manager%';
+
+| name          |
+| ------------- |
+| Bob Miller    |
+| Charlie Brown |
+| Dave Davis    |
+
+---
