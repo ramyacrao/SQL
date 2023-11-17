@@ -105,3 +105,61 @@ Find all employees who are not managers.
 | Dave Davis    |
 
 ---
+
+**Query #3**
+Find all employees who have been hired after the start of a project in their department.
+    SELECT 
+    	e.name
+    FROM 
+    	employees e INNER JOIN projects p 
+    	ON 
+        e.department_id = p.department_id
+    WHERE 
+    	e.hire_date > p.start_date;
+
+| name       |
+| ---------- |
+| Dave Davis |
+
+---
+
+**Query #4**
+Rank employees within each department based on their hire date (earliest hire gets the highest rank).
+    SELECT 
+    	*,
+        RANK() OVER(PARTITION BY department_id ORDER BY hire_date ASC) AS seniority
+    FROM 
+    	employees;
+
+| id  | name          | hire_date                | job_title       | department_id | seniority |
+| --- | ------------- | ------------------------ | --------------- | ------------- | --------- |
+| 1   | John Doe      | 2018-06-20T00:00:00.000Z | HR Manager      | 1             | 1         |
+| 4   | Bob Miller    | 2021-04-30T00:00:00.000Z | HR Associate    | 1             | 2         |
+| 2   | Jane Smith    | 2019-07-15T00:00:00.000Z | IT Manager      | 2             | 1         |
+| 5   | Charlie Brown | 2022-10-01T00:00:00.000Z | IT Associate    | 2             | 2         |
+| 3   | Alice Johnson | 2020-01-10T00:00:00.000Z | Sales Manager   | 3             | 1         |
+| 6   | Dave Davis    | 2023-03-15T00:00:00.000Z | Sales Associate | 3             | 2         |
+
+---
+
+**Query #5**
+Find the duration between the hire date of each employee and the hire date of the next employee hired in the same department.
+    SELECT 
+    	name,
+        hire_date,
+        COALESCE((hire_date - LAG(hire_date, 1) OVER(PARTITION BY department_id ORDER by hire_date ASC)),0) AS duration_since_previous_hire
+    FROM 
+    	employees;
+
+| name          | hire_date                | duration_since_previous_hire |
+| ------------- | ------------------------ | ---------------------------- |
+| John Doe      | 2018-06-20T00:00:00.000Z | 0                            |
+| Bob Miller    | 2021-04-30T00:00:00.000Z | 1045                         |
+| Jane Smith    | 2019-07-15T00:00:00.000Z | 0                            |
+| Charlie Brown | 2022-10-01T00:00:00.000Z | 1174                         |
+| Alice Johnson | 2020-01-10T00:00:00.000Z | 0                            |
+| Dave Davis    | 2023-03-15T00:00:00.000Z | 1160                         |
+
+---
+
+
