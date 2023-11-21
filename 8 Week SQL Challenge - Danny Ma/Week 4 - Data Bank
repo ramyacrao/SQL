@@ -9448,3 +9448,22 @@ What is the number of nodes per region?
 
 ---
 
+**Query #3**
+How many customers are allocated to each region?
+    SELECT 
+    	region_id,
+        COUNT(DISTINCT customer_id) AS num_customers 
+    FROM 
+    	data_bank.customer_nodes
+    GROUP BY 
+    	region_id;
+
+| region_id | num_customers |
+| --------- | ------------- |
+| 1         | 110           |
+| 2         | 105           |
+| 3         | 102           |
+| 4         | 95            |
+| 5         | 88            |
+
+---
