@@ -1,1 +1,15 @@
+******************************************
+Digital Analysis
+******************************************
+**Query #1**
+How many users are there?
+    SELECT 
+    	COUNT(DISTINCT user_id) AS num_users
+    FROM 
+    	clique_bait.users;
 
+| num_users |
+| --------- |
+| 500       |
+
+---
