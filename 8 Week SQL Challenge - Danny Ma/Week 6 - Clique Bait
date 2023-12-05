@@ -46,3 +46,28 @@ How many users are there?
 | 1       | Home Page    |
 
 ---
+**Query #4**
+What is the number of events for each event type?
+    SELECT 
+    	ei.event_type,
+        ei.event_name,
+        COUNT(e.event_type) AS num_of_events
+    FROM 
+    	clique_bait.event_identifier ei INNER JOIN clique_bait.events e
+        ON 
+        ei.event_type = e.event_type
+    GROUP BY 
+    	ei.event_type,
+        ei.event_name
+    ORDER BY 
+    	num_of_events DESC;
+
+| event_type | event_name    | num_of_events |
+| ---------- | ------------- | ------------- |
+| 1          | Page View     | 20928         |
+| 2          | Add to Cart   | 8451          |
+| 3          | Purchase      | 1777          |
+| 4          | Ad Impression | 876           |
+| 5          | Ad Click      | 702           |
+
+---
