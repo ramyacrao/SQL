@@ -15,37 +15,42 @@ How many users are there?
 ---
 **Query #7**
 
-    WITH pages_ranked_by_views AS 
-    	(SELECT 
-         	ph.page_id,
-         	ph.page_name,
-         	DENSE_RANK() OVER(ORDER BY COUNT(DISTINCT e.visit_id) DESC) AS page_rank
-         FROM 
-         	clique_bait.page_hierarchy ph INNER JOIN clique_bait.events e 
-         	ON 
-         	ph.page_id = e.page_id
-         WHERE 
-         	e.event_type = (SELECT event_type
-                            FROM clique_bait.event_identifier
-                            WHERE LOWER(event_name) LIKE 'page view')
-         GROUP BY
-        	ph.page_id,
-        	ph.page_name)
-    SELECT 
-    	page_id,
-        page_name
-    FROM 
-    	pages_ranked_by_views
-    WHERE 
-    	page_rank <= 3;
+     WITH pages_ranked_by_views AS 
+        	(SELECT 
+             	ph.page_id,
+             	ph.page_name,
+             	COUNT(DISTINCT e.visit_id) AS page_views,
+             	DENSE_RANK() OVER(ORDER BY COUNT(DISTINCT e.visit_id) DESC) AS page_rank
+             FROM 
+             	clique_bait.page_hierarchy ph INNER JOIN clique_bait.events e 
+             	ON 
+             	ph.page_id = e.page_id
+             WHERE 
+             	e.event_type = (SELECT event_type
+                                FROM clique_bait.event_identifier
+                                WHERE LOWER(event_name) LIKE 'page view')
+             GROUP BY
+            	ph.page_id,
+            	ph.page_name)
+        SELECT 
+        	page_id,
+            page_name,
+            page_views
+        FROM 
+        	pages_ranked_by_views
+        WHERE 
+        	page_rank <= 3
+        ORDER BY 
+        	page_rank;
 
-| page_id | page_name    |
-| ------- | ------------ |
-| 2       | All Products |
-| 12      | Checkout     |
-| 1       | Home Page    |
+| page_id | page_name    | page_views |
+| ------- | ------------ | ---------- |
+| 2       | All Products | 3174       |
+| 12      | Checkout     | 2103       |
+| 1       | Home Page    | 1782       |
 
 ---
+
 **Query #4**
 What is the number of events for each event type?
     SELECT 
