@@ -11,4 +11,36 @@ WHERE
 	AND
 	LOWER(city) LIKE 'sql%';
 
+Query to lookup the details of the witnesses based on information in the crime scene report
+SELECT 
+	*
+FROM 
+	person
+WHERE 
+	address_street_name = 'Northwestern Dr'
+	AND
+	address_number = (SELECT MAX(address_number)
+					  FROM person
+					  WHERE address_street_name = 'Northwestern Dr')
+UNION 
+SELECT 
+	*
+FROM 
+	person
+WHERE
+	(address_street_name = 'Franklin Ave'
+	AND
+	LOWER(name) LIKE 'annabel%')
+ORDER BY 
+	address_street_name,
+	address_number;
+
+Query to review the transcript of the interview with the witnesses Annabel Miller(ID 16371) & Morty Schapiro (ID 14887)
+SELECT 
+	*
+FROM 
+	interview
+WHERE 
+	person_id IN (16371, 14887);
+
 
