@@ -3,3 +3,6 @@
 A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​.
 
 This investigation was carried out entirely with queries - using database queries to infer the structure of a database, the structure of the tables in the database, and then to querying the tables to arrive at the solution.
+
+The database was found to have the following tables
+![tables](https://github.com/user-attachments/assets/bb8270e4-78ca-4366-ad13-b463cdba8992)
