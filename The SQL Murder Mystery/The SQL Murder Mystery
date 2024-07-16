@@ -43,4 +43,13 @@ FROM
 WHERE 
 	person_id IN (16371, 14887);
 
+Query to look up details based on license plate info in witness reports
+SELECT 
+	*
+FROM
+	drivers_license
+WHERE
+	gender = 'male'
+	AND
+	LOWER(plate_number) LIKE '%h42w%';
 
