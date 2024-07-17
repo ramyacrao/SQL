@@ -53,3 +53,18 @@ WHERE
 	AND
 	LOWER(plate_number) LIKE '%h42w%';
 
+Query to retrieve information based on gym membership info in witness reports
+SELECT 
+	gfnci.membership_id,
+	gfnm.person_id,
+	gfnm.name,
+	gfnm.membership_status,
+	gfnci.check_in_date
+FROM
+	get_fit_now_member gfnm INNER JOIN get_fit_now_check_in gfnci
+	ON
+	gfnm.id = gfnci.membership_id
+WHERE	
+	id LIKE '48Z%'
+	AND
+	membership_status = 'gold';
