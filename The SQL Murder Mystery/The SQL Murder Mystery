@@ -68,3 +68,11 @@ WHERE
 	id LIKE '48Z%'
 	AND
 	membership_status = 'gold';
+
+Query to retrieve the details of the suspects
+SELECT 
+	*
+FROM
+	person
+WHERE 
+	id IN (28819, 67318);
