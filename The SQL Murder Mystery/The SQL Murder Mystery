@@ -76,3 +76,15 @@ FROM
 	person
 WHERE 
 	id IN (28819, 67318);
+
+Query to look up the verify the existence of the suspects
+SELECT 
+	p.id,
+	p.name,
+	p.ssn
+FROM 
+	person p INNER JOIN income i
+	ON
+	p.ssn = i.ssn
+WHERE 
+	p.ssn IN (138909730, 871539279);
