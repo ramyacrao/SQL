@@ -88,3 +88,21 @@ FROM
 	p.ssn = i.ssn
 WHERE 
 	p.ssn IN (138909730, 871539279);
+
+**Extra Challenge
+Query to look up the details of the person described by the murderer
+SELECT 
+	*
+FROM
+	drivers_license
+WHERE 
+	gender = 'female'
+	AND 
+	height IN (65, 67)
+	AND
+	hair_color = 'red'
+	AND
+	LOWER(car_make) = 'tesla'
+	AND
+	LOWER(car_model) = 'model s';
+
