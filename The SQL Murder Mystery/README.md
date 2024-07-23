@@ -4,4 +4,8 @@
 
 A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​.
 
+On querying, the database was found to have the following tables
+
+![db_tables](https://github.com/user-attachments/assets/a7bde2e4-1718-4a55-89dd-32d24e0c005b)
+
 
