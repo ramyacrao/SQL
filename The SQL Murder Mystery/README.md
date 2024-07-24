@@ -2,10 +2,11 @@
 
 ### There's been a Murder in SQL City!
 
+**Task:**</br>
 A crime has taken place in SQL City and the detective has reached out for help. The crime scene report shared by the detective has been misplaced and the only information on hand is that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​.
 
-**Database structure & schema**
-
+**Prep**:</br>
+_**Database structure & schema**_
 To get an idea of the information I was working with, I first looked into the tables available in the database and their schema.
 
 <sub>List of tables in the database</sub>
