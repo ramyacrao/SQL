@@ -6,7 +6,9 @@
 A crime has taken place in SQL City and the detective has reached out for help. The crime scene report shared by the detective has been misplaced and the only information on hand is that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​.
 
 **Prep**:</br>
-To get an idea of the information I was working with, I first looked into the database schema.
+To get an idea of the information I was working with, I first looked into the database schema. </br>
+
+On querying, the database was found to have the following 9 tables - 8 tables with information pertaining to the crime, and the solution table to validate the result once done. </br>
 
 <sub>List of tables in the database</sub></br>
 ![db_tables](https://github.com/user-attachments/assets/c622de26-0dab-4685-9acc-8c67bc317f6d)
