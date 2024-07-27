@@ -8,6 +8,8 @@ FROM
 WHERE 
 	type = 'table';
 
+--Query to return details in crime scene report
+--Info available : murder in SQLCity on jan 15th, 2018
 SELECT 
 	*
 FROM 
