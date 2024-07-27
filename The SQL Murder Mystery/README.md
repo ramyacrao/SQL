@@ -16,6 +16,8 @@ On querying, the database was found to have the following 9 tables - 8 tables wi
 <sub>Schema of the tables in the database</sub></br>
 ![db_table_schema](https://github.com/user-attachments/assets/aa0b91c9-7de8-4507-bc00-833732258728)
 
-**Investigation**
-1. 
+**Investigation**</br>
+I started off by looking into the crime scene report for the details. </br>
+![db_query1_output](https://github.com/user-attachments/assets/61e08241-b512-46ec-b25d-da115d36081c)
+   
 
