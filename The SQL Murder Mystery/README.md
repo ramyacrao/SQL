@@ -20,5 +20,10 @@ On querying, the database was found to have the following 9 tables - 8 tables wi
 
 I started off by looking into the crime scene report for the details. </br>
 ![db_query1_output](https://github.com/user-attachments/assets/61e08241-b512-46ec-b25d-da115d36081c)
+
+The next step was to look up the details of the witnesses based on the information in the crime scene report. </br>
+![db_query2_output](https://github.com/user-attachments/assets/53cc4f51-e97a-4a5c-9c9a-481c3be7db23)
+
+
    
 
