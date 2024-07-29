@@ -21,7 +21,9 @@ WHERE
 	AND
 	LOWER(city) LIKE 'sql%';
 
-Query to lookup the details of the witnesses based on information in the crime scene report
+--Query to lookup the details of the witnesses based on information in the crime scene report
+--Info available: 1. First witness lives at the last house on 'Northwestern Dr.'
+--Info available: 2. Second witness, named 'Annabel', lives somewhere on 'Franklin Ave.'
 SELECT 
 	*
 FROM 
