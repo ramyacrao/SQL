@@ -24,6 +24,9 @@ I started off by looking into the crime scene report for the details. </br>
 The next step was to look up the details of the witnesses based on the information in the crime scene report. </br>
 ![db_query2_output](https://github.com/user-attachments/assets/53cc4f51-e97a-4a5c-9c9a-481c3be7db23)
 
+Once I had the names of the witnesses, it was time to look up the transcript of their interview. </br>
+![db_query3_output](https://github.com/user-attachments/assets/891e6d4c-cd98-4a7d-8f7d-346479701905)
+
 
    
 
