@@ -8,6 +8,14 @@ FROM
 WHERE 
 	type = 'table';
 
+--Query to return the structure of the tables to be used in the investigation
+SELECT 
+	sql 
+FROM 
+	sqlite_master
+WHERE 
+	name IN ('crime_scene_report', 'drivers_license', 'facebook-event_checkin', 'interview', 'get_fit_now_member', 'get_fit_now_check_in', 'income', 'person');
+
 --Query to return details in crime scene report
 --Info available : murder in SQLCity on jan 15th, 2018
 SELECT 
@@ -47,7 +55,8 @@ ORDER BY
 	address_street_name,
 	address_number;
 
---Query to review the transcript of the interview with the witnesses Annabel Miller(ID 16371) & Morty Schapiro (ID 14887)
+--Query to review the transcript of the interview with the witnesses.
+--Info Available: Person IDs of Annabel Miller(ID 16371) & Morty Schapiro (ID 14887)
 SELECT 
 	*
 FROM 
