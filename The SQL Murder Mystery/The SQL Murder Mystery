@@ -47,7 +47,7 @@ ORDER BY
 	address_street_name,
 	address_number;
 
-Query to review the transcript of the interview with the witnesses Annabel Miller(ID 16371) & Morty Schapiro (ID 14887)
+--Query to review the transcript of the interview with the witnesses Annabel Miller(ID 16371) & Morty Schapiro (ID 14887)
 SELECT 
 	*
 FROM 
