@@ -64,7 +64,8 @@ FROM
 WHERE 
 	person_id IN (16371, 14887);
 
-Query to look up details based on license plate info in witness reports
+--Query to look up details of suspect based on license plate info in witness reports
+--Info Available: Suspect was a man who got into a car with a plate that included 'H42W'
 SELECT 
 	*
 FROM
