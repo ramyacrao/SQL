@@ -27,6 +27,10 @@ The next step was to look up the details of the witnesses based on the informati
 Once I had the names of the witnesses, it was time to find the transcript of their interview. </br>
 ![db_query3_output](https://github.com/user-attachments/assets/891e6d4c-cd98-4a7d-8f7d-346479701905)
 
+Narrowing down the suspects to arrive at the solution based on the information provided by the witnesses. </br>
+![db_solution](https://github.com/user-attachments/assets/75c99d68-8fd3-4586-9682-df16dba566ba)
+
+
 
    
 
