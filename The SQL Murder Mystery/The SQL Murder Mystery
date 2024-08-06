@@ -64,12 +64,24 @@ FROM
 WHERE 
 	person_id IN (16371, 14887);
 
---Query to look up details of suspect based on license plate info in witness reports
+--Query to look up details of suspect based on interview transcripts of the witnesses.
 --Info Available: 1. Suspect was a man with a 'Get Fit Now Gym' bag with membership number that started with '48Z'. The bag is only for Gold members. He got into a car with a plate that included 'H42W.  
 --Info Available: 2. The suspect worked out at the gym on January 9th.
-
-
-
+SELECT 
+	p.*
+FROM 
+	person p
+		INNER JOIN drivers_license dl ON p.license_id = dl.id
+		INNER JOIN get_fit_now_member gfnm ON p.id = gfnm.person_id
+		INNER JOIN get_fit_now_check_in gfnci ON gfnci.membership_id = gfnm.id
+WHERE 
+	LOWER(dl.plate_number) LIKE '%h42w%'
+	AND
+ 	LOWER(gfnm.membership_status) ='gold'
+    AND
+	LOWER(gfnm.id) LIKE '48z%'
+	AND
+    gfnci.check_in_date = 20180109;
 
 **Extra Challenge
 Query to look up the details of the person described by the murderer
