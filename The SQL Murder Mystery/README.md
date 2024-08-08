@@ -31,6 +31,11 @@ Narrowing down the suspects to arrive at the solution based on the information p
 ![db_solution](https://github.com/user-attachments/assets/75c99d68-8fd3-4586-9682-df16dba566ba)
 
 
+But wait, there's a twist!!! The murderer reveals something unexpected during interrogation...
+![db_extraoutput_1](https://github.com/user-attachments/assets/caca7f60-5c91-4d54-b74f-6c5582d5ffda)
+
+
+
 
    
 
