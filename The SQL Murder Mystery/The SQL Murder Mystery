@@ -92,8 +92,8 @@ FROM
 WHERE 
 	person_id = 67318;
 
-**Extra Challenge
-Query to look up the details of the person described by the murderer
+--Query to look up the details of the person described by the murderer
+Info Available: Hired by a wealthy red haired woman, between 5'5" to 5'7" tall, driving a Tesla Model S. She attended the SQL Symphony Concert thrice in December 2017.
 SELECT 
 	*
 FROM
