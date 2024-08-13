@@ -94,67 +94,19 @@ WHERE
 
 --Query to look up the details of the person described by the murderer
 Info Available: Hired by a wealthy red haired woman, between 5'5" to 5'7" tall, driving a Tesla Model S. She attended the SQL Symphony Concert thrice in December 2017.
-
-
 SELECT 
-	person_id,
-	COUNT(event_name)
-FROM 
-	facebook_event_checkin
-WHERE 
-	event_name LIKE 'SQL %'
-	AND 
-	date BETWEEN 20171201 AND 20171231
-GROUP BY 
-	person_id
-	
-
-
-
-/*SELECT 
-	*
-FROM
-	drivers_license
-WHERE 
-	gender = 'female'
-	AND 
-	height IN (65, 67)
-	AND
-	hair_color = 'red'
-	AND
-	LOWER(car_make) = 'tesla'
-	AND
-	LOWER(car_model) = 'model s';*/
-	
-/*SELECT 
-	*
-FROM 
-	person
-WHERE
-	license_id = 918773*/
-
-/*SELECT 
-	p.name,
-	p.id,
-	p.license_id,
-	dl.id,
-	dl.gender,
-	dl.height,
-	dl.hair_color,
-	dl.car_make,
-	dl.car_model
+	DISTINCT p.name
 FROM
 	person p 
 		INNER JOIN drivers_license dl ON p.license_id = dl.id
-		--INNER JOIN facebook_event_checkin fec ON p.id = fec.person_id
+		INNER JOIN facebook_event_checkin fec ON p.id = fec.person_id
 WHERE 
 	dl.gender = 'female'
 	AND 
-	dl.height IN (65, 67)
+	dl.height BETWEEN 65 AND 67
 	AND
 	dl.hair_color = 'red'
 	AND
 	LOWER(dl.car_make) = 'tesla'
 	AND
-	LOWER(dl.car_model) = 'model s';*/
-
+	LOWER(dl.car_model) = 'model s';
